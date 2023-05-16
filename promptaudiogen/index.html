@@ -71,10 +71,10 @@
 -->
 
 <h2 id="audio samples">2. Audio Samples</h2>
-<p> The following parts are the audio samples from our system and PromptTTS. Note that we show PromptTTS from 3 parts as follows.</p>
+<p> The following parts are the audio samples from our system and PromptTTS. Note that we show our system from 3 parts as follows.</p>
 <p> <b>Comparison of Style Control</b>: we aim to show that we can control a specific style with the prompts of different meaning.</p>
 <p> <b>Comparison of Residual Style Variation</b>: we aim to show that we can synthesize speech in different residual styles with different gaussion noise.</p>
-<p> <b>Comparison of Residual Style Control</b>: we aim to show we can control a specific residual styles with the prompts of different meaning.</p>
+<p> <b>Comparison of Residual Style Control</b>: we aim to show we can control a specific residual style with the prompts of different meaning.</p>
 
 <h3 id="Part 1">2.1 Comparison of Style Control</h3>
 <p> Note that audio samples in this part are from our system and PromptTTS with different prompts, which shows that our system can control a specific style with the prompts of different meaning.</p>
@@ -106,7 +106,7 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 <td style="text-align: center"><audio controls="controls" ><source src="../audio/audio4.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 </tr>
 </tbody>
@@ -260,11 +260,11 @@
 </table>
 
 <h3 id="Part 2">2.2 Comparison of Residual Style Variation</h3>
-<p> Note that audio samples in this part are from our system and PromptTTS with different settings to synthesize speech, which shows that our system can synthesize speech in different residual styles with different gaussion noise.</p>
+<p> Note that audio samples in this part are from our system and PromptTTS with different settings, which shows that our system can synthesize speech in different residual styles with different gaussion noise.</p>
 <h4 id="oursystem2">2.2.1 Our System</h4>
 <h5 id="text1">2.2.1.1 Text</h5>
 <p>Text-1: <em>I want a <b>loud</b> <b>female</b> voice: If you wore the pink bonnet, I'll give it to you, and I'll back you up again, Mrs. Danvey. I think you might have done something with our member, as my father calls him, when you had him for so long in the house, but altogether.</em></p>
-<p>Text-2: <em>I want a <b>loud</b> <b>female</b> voice: Would he too come to regard things in the same spirit of acquiescence? Chapter two.</em></p>
+<p>Text-2: <em>I want a <b>loud</b> <b>female</b> voice: Would he too come to regard things in the same spirit of acquiescence? File chapter two.</em></p>
 <p>Text-3: <em>I want a <b>loud</b> <b>female</b> voice: And in this additional chapter to amplify and fortify, here and there, the result must necessarily be disconnected but a glance at the index will point the way to what is new.</em></p>
 <p>Text-4: <em>I want a <b>loud</b> <b>female</b> voice: Delaney had read one or two works on psychic phenomena and understood from them that spirit projection was not only quite feasible but far from uncommon. </em></p>
 <p>Text-5: <em>I want a <b>loud</b> <b>female</b> voice: It was but a woman's fancy, a passing fancy. She would become reconciled to the inevitable, as women do, and when her children came, she would grow accustomed to her sorrow. And her trouble would be forgotten in their laughter.</em></p>
@@ -290,9 +290,9 @@
 </table>
 
 <h5 id="prompt1">2.2.1.2 Prompt</h5>
-<p>Prompt-1: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. She repeated the old phrase, "Presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
-<p>Prompt-1: <em>This <b>madam</b> talks to me with <b>high volume</b>: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. She repeated the old phrase, "Presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
-<p>Prompt-1: <em><b>Increase the volume</b> of <b>her</b> voice for me: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. She repeated the old phrase, "Presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<p>Prompt-1: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<p>Prompt-2: <em>This <b>madam</b> talks to me with <b>high volume</b>: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<p>Prompt-3: <em><b>Increase the volume</b> of <b>her</b> voice for me: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
 <table>
 <thead>
 <tr>
@@ -311,7 +311,7 @@
 </table>
 
 <h5 id="diffusion1">2.2.1.3 Diffusion</h5>
-<p>Diffusion-[1, 2, 3, 4, 5]: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. She repeated the old phrase, "Presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<p>Diffusion-[1, 2, 3, 4, 5]: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
 <table>
 <thead>
 <tr>
@@ -334,7 +334,7 @@
 </table>
 
 <h5 id="vae1">2.2.1.4 VAE</h5>
-<p>Diffusion-[1, 2, 3, 4, 5]: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. She repeated the old phrase, "Presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<p>Diffusion-[1, 2, 3, 4, 5]: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
 <table>
 <thead>
 <tr>
@@ -356,10 +356,10 @@
 </tbody>
 </table>
 
-<h4 id="prompttts2">2.2.1 PromptTTS</h4>
+<h4 id="prompttts2">2.2.2 PromptTTS</h4>
 <h5 id="text2">2.2.2.1 Text</h5>
 <p>Text-1: <em>I want a <b>loud</b> <b>female</b> voice: If you wore the pink bonnet, I'll give it to you, and I'll back you up again, Mrs. Danvey. I think you might have done something with our member, as my father calls him, when you had him for so long in the house, but altogether.</em></p>
-<p>Text-2: <em>I want a <b>loud</b> <b>female</b> voice: Would he too come to regard things in the same spirit of acquiescence? Chapter two.</em></p>
+<p>Text-2: <em>I want a <b>loud</b> <b>female</b> voice: Would he too come to regard things in the same spirit of acquiescence? File chapter two.</em></p>
 <p>Text-3: <em>I want a <b>loud</b> <b>female</b> voice: And in this additional chapter to amplify and fortify, here and there, the result must necessarily be disconnected but a glance at the index will point the way to what is new.</em></p>
 <p>Text-4: <em>I want a <b>loud</b> <b>female</b> voice: Delaney had read one or two works on psychic phenomena and understood from them that spirit projection was not only quite feasible but far from uncommon. </em></p>
 <p>Text-5: <em>I want a <b>loud</b> <b>female</b> voice: It was but a woman's fancy, a passing fancy. She would become reconciled to the inevitable, as women do, and when her children came, she would grow accustomed to her sorrow. And her trouble would be forgotten in their laughter.</em></p>
@@ -385,9 +385,9 @@
 </table>
 
 <h5 id="prompt2">2.2.2.2 Prompt</h5>
-<p>Prompt-1: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. She repeated the old phrase, "Presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
-<p>Prompt-1: <em>This <b>madam</b> talks to me with <b>high volume</b>: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. She repeated the old phrase, "Presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
-<p>Prompt-1: <em><b>Increase the volume</b> of <b>her</b> voice for me: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. She repeated the old phrase, "Presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<p>Prompt-1: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<p>Prompt-2: <em>This <b>madam</b> talks to me with <b>high volume</b>: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<p>Prompt-3: <em><b>Increase the volume</b> of <b>her</b> voice for me: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
 <table>
 <thead>
 <tr>
@@ -406,7 +406,7 @@
 </table>
 
 <h5 id="diffusion2">2.2.2.3 Diffusion</h5>
-<p>Diffusion-[1, 2, 3, 4, 5]: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. She repeated the old phrase, "Presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<p>Diffusion-[1, 2, 3, 4, 5]: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
 <table>
 <thead>
 <tr>
@@ -436,6 +436,8 @@
 <h3 id="Part 3">2.3 Comparison of Residual Style Control</h3>
 <p> Note that audio samples in this part are from our system with different reference speech to synthesize speech, which shows that our system can control a specific residual styles with the prompts of different meaning.</p>
 
+
+<h4 id="Speed3">2.3.1 Speed</h4>
 <p>Refence Speech: <em>Those sounds, which may proceed in the same tempo and with the same rhythm, but which a thousand times leave you cold and unmoved, and a thousand and a first time make you tremble and weep.</em></p>
 <p>Speed-1: <em>Listen, <b>she</b> <b>decreased her speaking speed</b>: Those sounds, which may proceed in the same tempo and with the same rhythm, but which a thousand times leave you cold and unmoved, and a thousand and a first time make you tremble and weep.</em></p>
 <p>Speed-2: <em>Listen, <b>she</b> <b>increased her speaking speed</b>: Those sounds, which may proceed in the same tempo and with the same rhythm, but which a thousand times leave you cold and unmoved, and a thousand and a first time make you tremble and weep.</em></p>
@@ -456,6 +458,7 @@
 </tbody>
 </table>
 
+<h4 id="Pitch3">2.3.2 Pitch</h4>
 <p>Refence Speech: <em>On the evening, the divorce question was discussed between the widow and her son. She meant to take use unexpectedly firm opposition, and had promised to let the matter remain unsettled till his return. </em></p>
 <p>Pitch-1: <em>Please find a <b>girl</b> to talk at a <b>lower pitch</b> than usual: On the evening, the divorce question was discussed between the widow and her son. She meant to take use unexpectedly firm opposition, and had promised to let the matter remain unsettled till his return. </em></p>
 <p>Pitch-2: <em>Please find a <b>girl</b> to talk at a <b>higher pitch</b> than usual: On the evening, the divorce question was discussed between the widow and her son. She meant to take use unexpectedly firm opposition, and had promised to let the matter remain unsettled till his return. </em></p>
@@ -463,8 +466,8 @@
 <thead>
 <tr>
 <th style="text-align: center">Refence Speech</th>
-<th style="text-align: center">Speed-1</th>
-<th style="text-align: center">Speed-2</th>
+<th style="text-align: center">Pitch-1</th>
+<th style="text-align: center">Pitch-2</th>
 </tr>
 </thead>
 <tbody>
