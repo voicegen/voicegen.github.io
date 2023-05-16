@@ -38,8 +38,9 @@
 <b><a href="#audio samples">2. Audio Samples</a></b><br>
 <a href="#Part 1">2.1 Comparison of Style Control</a><br>
 <a href="#Part 2">2.2 Comparison of Residual Style Variation</a><br>
+<!--
 <a href="#Part 3">2.3 Comparison of Residual Style Control</a><br>
-
+-->
 <!--
 <h2 id="dataset">1. Dataset</h2>
 <p> Given that there are no TTS datasets with prompts, we construct and release a dataset called PromptSpeech which consists of speech and the corresponding prompts. We synthesize speech with 5 different style factors (gender, pitch, speaking speed, volume, and emotion) from a commercial TTS <a href="https://azure.microsoft.com/en-us/services/cognitive-services/text-to-speech/#overview">API</a>. The emotion factor has 5 categories and the gender factor has 2 categories. For the rest of style factors including pitch, speaking speed, and volume, we extract the value of style factors from speech with signal processing tools and divide speech into 3 categories (high/normal/low) according to the proportion. Considering that the style of speech can be described in natural language, we ask experts to write style prompts for each category. To further augment the style prompts, we utilize SimBERT to generate more style prompts with similar semantics. The speech and the corresponding prompt describing the same style and content are used as paired data in our dataset.</p>
@@ -74,7 +75,9 @@
 <p> The following parts are the audio samples from our system and PromptTTS. Note that we show our system from 3 parts as follows.</p>
 <p> <b>Comparison of Style Control</b>: we aim to show that we can control a specific style with the prompts of different meaning.</p>
 <p> <b>Comparison of Residual Style Variation</b>: we aim to show that we can synthesize speech in different residual styles with different gaussion noise.</p>
+<!--
 <p> <b>Comparison of Residual Style Control</b>: we aim to show we can control a specific residual style with the prompts of different meaning.</p>
+-->
 
 <h3 id="Part 1">2.1 Comparison of Style Control</h3>
 <p> Note that audio samples in this part are from our system and PromptTTS with different prompts, which shows that our system can control a specific style with the prompts of different meaning.</p>
@@ -432,7 +435,7 @@
 <p>PromptTTS: <em>Listen, <b>she</b> <b>increased her speaking speed</b>: There was not a worse vagabond in Shrewsbury than old Barney the piper.</em></p>
 <p>PromptTTS: <em>Please find a <b>girl</b> to talk at a <b>higher pitch</b> than usual: Barney had one son, named Tom; and they lived all alone in a little hut away at the end of the village street, for Tom's mother had died when he was a baby.</em></p>
 
-
+<!--
 <h3 id="Part 3">2.3 Comparison of Residual Style Control</h3>
 <p> Note that audio samples in this part are from our system with different reference speech to synthesize speech, which shows that our system can control a specific residual styles with the prompts of different meaning.</p>
 
@@ -478,7 +481,7 @@
 </tr>
 </tbody>
 </table>
-				
+-->
 			</section>
 		</article>
 	</main>
