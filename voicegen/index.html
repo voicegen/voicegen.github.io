@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.66.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/f8.4/styles/github.min.css">
+<link rel="stylesheet" href="../css/normalize.css">
+<link rel="stylesheet" href="../css/skeleton.css">
+<link rel="stylesheet" href="../css/custom.css">
+<link rel="alternate" href="index.xml" type="application/rss+xml" title="Speech Research">
+<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+<title>Describing and Generating Voices with Text Prompt - Speech Research</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+	</header>
+	<main role="main">
+		<article itemscope itemtype="https://schema.org/BlogPostinCg">
+            <h1 class="entry-title" itemprop="headline">Describing and Generating Voices with Text Prompt</h1>
+
+			<section itemprop="entry-text">
+				<br>
+
+<h2 id="abstract">Abstract</h2>
+<p> In this paper, we introduce an innovative method on generating voices for speech synthesis using text descriptions as prompt. Traditional Text-to-Speech (TTS) systems depend on reference audio for style control, resulting in reduced flexibility and user-friendliness. Consequently, recent research has focused on controlling speech synthesis style through text descriptions. However, existing text description-based TTS approaches face challenges such as requiring human experts to write descriptions and confronting the one-to-many problem due to limited fine-grained style information in the text. To address these issues, we (1) leverage ChatGPT to generate fluent descriptions centered on specific speech style keywords, and carefully design prompts with keyword placeholders to counteract ChatGPT's instability, which may produce excessive details or miss crucial keywords. Furthermore, we (2) employ a variational auto-encoder (VAE) to model the residual style information not captured by the text description. By incorporating a gradient reversal layer, the VAE module efficiently disentangles style information from both the text description and reference audio. Our experiments on a large-scale datasets with 44K hours of speech data show that our method outperforms previous works in style control accuracy. And ChatGPT-generated descriptions demonstrate marginally higher quality than human-authored ones. Thanks to the style disentanglement, our system is able to facilitate style generation by sampling from noise during inference. An online demo of our system is available for further exploration. </p>
+
+
+<h2 id="content">Content</h2>
+<!--
+<b><a href="#dataset">1. Dataset</a></b><br>
+<a href="#promptspeech">1.1 PromptSpeech</a><br>
+-->
+<b><a href="#audio samples">2. Audio Samples</a></b><br>
+<a href="#Part 1">2.1 Comparison of Style Control</a><br>
+<a href="#Part 2">2.2 Comparison of Residual Style Variation</a><br>
+<!--
+<a href="#Part 3">2.3 Comparison of Residual Style Control</a><br>
+-->
+<!--
+<h2 id="dataset">1. Dataset</h2>
+<p> Given that there are no TTS datasets with prompts, we construct and release a dataset called PromptSpeech which consists of speech and the corresponding prompts. We synthesize speech with 5 different style factors (gender, pitch, speaking speed, volume, and emotion) from a commercial TTS <a href="https://azure.microsoft.com/en-us/services/cognitive-services/text-to-speech/#overview">API</a>. The emotion factor has 5 categories and the gender factor has 2 categories. For the rest of style factors including pitch, speaking speed, and volume, we extract the value of style factors from speech with signal processing tools and divide speech into 3 categories (high/normal/low) according to the proportion. Considering that the style of speech can be described in natural language, we ask experts to write style prompts for each category. To further augment the style prompts, we utilize SimBERT to generate more style prompts with similar semantics. The speech and the corresponding prompt describing the same style and content are used as paired data in our dataset.</p>
+<p> Since there could be a gap between the synthesized speech and the real speech, besides the dataset mentioned above (denoted as synthesized version), we also construct a dataset (denoted as real version) with real speech data from LibriTTS by similar construction process. Due to the lack of emotion in LibriTTS, the real version of PromptSpeech only has 4 style factors. As shown in the table below, we split both versions of PromptSpeech into training sets and test sets, which are released in public. The experiments are conducted on PromptSpeech to verify the effectiveness of PromptTTS.</p>
+
+<h3 id="promptspeech">1.1 PromptSpeech</h3>
+<p> You can download the both versions of PromptSpeech from the table below and the number in the table corresponds to the amount of downloaded data.</p>
+<table><thead>
+<tr>
+<th style="text-align: center">Version</th>
+<th style="text-align: center">Training Prompt</th>
+<th style="text-align: center">Test Prompt</th>
+<th style="text-align: center">Speech</th>
+</tr></thead><tbody>
+<tr>
+<td>Synthesized</td>
+<td><a href="../dataset/promptspeech/Synthesized_training.zip">155092</a></td>
+<td><a href="../dataset/promptspeech/Synthesized_test.zip">5032</a></td>
+<td>160124</td>
+</tr>
+<tr>
+<td>Real</td>
+<td><a href="../dataset/promptspeech/Real_training.zip">26588</a></td>
+<td><a href="../dataset/promptspeech/Real_test.zip">1305</a></td>
+<td><a href="http://www.openslr.org/60/">27893</a></td>
+</tr>
+</tbody>
+</table>
+-->
+
+<h2 id="audio samples">2. Audio Samples</h2>
+<p> The following parts are the audio samples from our system and PromptTTS. Note that we show our system from 3 parts as follows.</p>
+<p> <b>Comparison of Style Control</b>: we aim to show that we can control a specific style with the prompts of different meaning.</p>
+<p> <b>Comparison of Residual Style Variation</b>: we aim to show that we can synthesize speech in different residual styles with different gaussion noise.</p>
+<!--
+<p> <b>Comparison of Residual Style Control</b>: we aim to show we can control a specific residual style with the prompts of different meaning.</p>
+-->
+
+<h3 id="Part 1">2.1 Comparison of Style Control</h3>
+<p> Note that audio samples in this part are from our system and PromptTTS with different prompts, which shows that our system can control a specific style with the prompts of different meaning.</p>
+
+<h4 id="gender1">2.1.1 Gender</h4>
+<p>[Our System, PromptTTS]: <em>Please ask a <b>man</b> with a normal voice to say: Fire a whole platoon, Major.</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Our System</th>
+<th style="text-align: center">PromptTTS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<p>[Our System, PromptTTS]: <em>Please ask a <b>woman</b> with a normal voice to say: Fire a whole platoon, Major.</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Our System</th>
+<th style="text-align: center">PromptTTS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio4.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="Speed1">2.1.2 Speed</h4>
+<p>[Our System, PromptTTS]: <em>Please speak at a <b>slow speed</b>, gentleman: What the deal has he come down here for?</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Our System</th>
+<th style="text-align: center">PromptTTS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio5.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio8.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<p>[Our System, PromptTTS]: <em>Please speak at a <b>normal speed</b>, gentleman: What the deal has he come down here for?</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Our System</th>
+<th style="text-align: center">PromptTTS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio6.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio9.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<p>[Our System, PromptTTS]: <em>Please speak at a <b>fast speed</b>, gentleman: What the deal has he come down here for?</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Our System</th>
+<th style="text-align: center">PromptTTS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio7.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio10.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="Pitch1">2.1.3 Pitch</h4>
+<p>[Our System, PromptTTS]: <em>She said in a <b>low pitch</b>: They couldn't run nor move. They're just pasteboard.</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Our System</th>
+<th style="text-align: center">PromptTTS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio13.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio16.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<p>[Our System, PromptTTS]: <em>She said in a <b>normal pitch</b>: They couldn't run nor move. They're just pasteboard.</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Our System</th>
+<th style="text-align: center">PromptTTS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio12.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio15.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<p>[Our System, PromptTTS]: <em>She said in a <b>high pitch</b>: They couldn't run nor move. They're just pasteboard.</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Our System</th>
+<th style="text-align: center">PromptTTS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio11.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio14.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="Volume1">2.1.4 Volume</h4>
+<p>[Our System, PromptTTS]: <em>Generate a boy's voice with a <b>low volume</b> for me: What the deal has he come down here for?</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Our System</th>
+<th style="text-align: center">PromptTTS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio20.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio17.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<p>[Our System, PromptTTS]: <em>Generate a boy's voice with a <b>normal volume</b> for me: What the deal has he come down here for?</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Our System</th>
+<th style="text-align: center">PromptTTS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio21.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio18.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<p>[Our System, PromptTTS]: <em>Generate a boy's voice with a <b>high volume</b> for me: What the deal has he come down here for?</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Our System</th>
+<th style="text-align: center">PromptTTS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio22.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio19.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="Part 2">2.2 Comparison of Residual Style Variation</h3>
+<p> Note that audio samples in this part are from our system and PromptTTS with different settings, which shows that our system can synthesize speech in different residual styles with different gaussion noise.</p>
+<h4 id="oursystem2">2.2.1 Our System</h4>
+<h5 id="text1">2.2.1.1 Text</h5>
+<p>Text-1: <em>I want a <b>loud</b> <b>female</b> voice: If you wore the pink bonnet, I'll give it to you, and I'll back you up again, Mrs. Danvey. I think you might have done something with our member, as my father calls him, when you had him for so long in the house, but altogether.</em></p>
+<p>Text-2: <em>I want a <b>loud</b> <b>female</b> voice: Would he too come to regard things in the same spirit of acquiescence? File chapter two.</em></p>
+<p>Text-3: <em>I want a <b>loud</b> <b>female</b> voice: And in this additional chapter to amplify and fortify, here and there, the result must necessarily be disconnected but a glance at the index will point the way to what is new.</em></p>
+<p>Text-4: <em>I want a <b>loud</b> <b>female</b> voice: Delaney had read one or two works on psychic phenomena and understood from them that spirit projection was not only quite feasible but far from uncommon. </em></p>
+<p>Text-5: <em>I want a <b>loud</b> <b>female</b> voice: It was but a woman's fancy, a passing fancy. She would become reconciled to the inevitable, as women do, and when her children came, she would grow accustomed to her sorrow. And her trouble would be forgotten in their laughter.</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Text-1</th>
+<th style="text-align: center">Text-2</th>
+<th style="text-align: center">Text-3</th>
+<th style="text-align: center">Text-4</th>
+<th style="text-align: center">Text-5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio50.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio49.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio48.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio47.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio46.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<h5 id="prompt1">2.2.1.2 Prompt</h5>
+<p>Prompt-1: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<p>Prompt-2: <em>This <b>madam</b> talks to me with <b>high volume</b>: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<p>Prompt-3: <em><b>Increase the volume</b> of <b>her</b> voice for me: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Prompt-1</th>
+<th style="text-align: center">Prompt-2</th>
+<th style="text-align: center">Prompt-3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio39.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio44.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio45.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<h5 id="diffusion1">2.2.1.3 Diffusion</h5>
+<p>Diffusion-[1, 2, 3, 4, 5]: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Diffusion-1</th>
+<th style="text-align: center">Diffusion-2</th>
+<th style="text-align: center">Diffusion-3</th>
+<th style="text-align: center">Diffusion-4</th>
+<th style="text-align: center">Diffusion-5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio43.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio42.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio41.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio40.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio39.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<h5 id="vae1">2.2.1.4 VAE</h5>
+<p>Diffusion-[1, 2, 3, 4, 5]: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Diffusion-1</th>
+<th style="text-align: center">Diffusion-2</th>
+<th style="text-align: center">Diffusion-3</th>
+<th style="text-align: center">Diffusion-4</th>
+<th style="text-align: center">Diffusion-5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio35.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio36.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio37.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio38.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio39.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="prompttts2">2.2.2 PromptTTS</h4>
+<h5 id="text2">2.2.2.1 Text</h5>
+<p>Text-1: <em>I want a <b>loud</b> <b>female</b> voice: If you wore the pink bonnet, I'll give it to you, and I'll back you up again, Mrs. Danvey. I think you might have done something with our member, as my father calls him, when you had him for so long in the house, but altogether.</em></p>
+<p>Text-2: <em>I want a <b>loud</b> <b>female</b> voice: Would he too come to regard things in the same spirit of acquiescence? File chapter two.</em></p>
+<p>Text-3: <em>I want a <b>loud</b> <b>female</b> voice: And in this additional chapter to amplify and fortify, here and there, the result must necessarily be disconnected but a glance at the index will point the way to what is new.</em></p>
+<p>Text-4: <em>I want a <b>loud</b> <b>female</b> voice: Delaney had read one or two works on psychic phenomena and understood from them that spirit projection was not only quite feasible but far from uncommon. </em></p>
+<p>Text-5: <em>I want a <b>loud</b> <b>female</b> voice: It was but a woman's fancy, a passing fancy. She would become reconciled to the inevitable, as women do, and when her children came, she would grow accustomed to her sorrow. And her trouble would be forgotten in their laughter.</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Text-1</th>
+<th style="text-align: center">Text-2</th>
+<th style="text-align: center">Text-3</th>
+<th style="text-align: center">Text-4</th>
+<th style="text-align: center">Text-5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio30.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio31.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio32.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio33.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio34.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<h5 id="prompt2">2.2.2.2 Prompt</h5>
+<p>Prompt-1: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<p>Prompt-2: <em>This <b>madam</b> talks to me with <b>high volume</b>: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<p>Prompt-3: <em><b>Increase the volume</b> of <b>her</b> voice for me: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Prompt-1</th>
+<th style="text-align: center">Prompt-2</th>
+<th style="text-align: center">Prompt-3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio23.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio28.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio29.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<h5 id="diffusion2">2.2.2.3 Diffusion</h5>
+<p>Diffusion-[1, 2, 3, 4, 5]: <em>I want a <b>loud</b> <b>female</b> voice: His mother stooped over him, gave him one more kiss, him being her favorite among all her children. Her repeated the old phrase: "presently, presently, now go away all of you. I want to be left for a little alone with my husband. "</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Diffusion-1</th>
+<th style="text-align: center">Diffusion-2</th>
+<th style="text-align: center">Diffusion-3</th>
+<th style="text-align: center">Diffusion-4</th>
+<th style="text-align: center">Diffusion-5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio23.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio24.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio25.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio26.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio27.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+
+<p>PromptTTS: <em>Listen, <b>she</b> <b>increased her speaking speed</b>: There was not a worse vagabond in Shrewsbury than old Barney the piper.</em></p>
+<p>PromptTTS: <em>Please find a <b>girl</b> to talk at a <b>higher pitch</b> than usual: Barney had one son, named Tom; and they lived all alone in a little hut away at the end of the village street, for Tom's mother had died when he was a baby.</em></p>
+
+<!--
+<h3 id="Part 3">2.3 Comparison of Residual Style Control</h3>
+<p> Note that audio samples in this part are from our system with different reference speech to synthesize speech, which shows that our system can control a specific residual styles with the prompts of different meaning.</p>
+
+
+<h4 id="Speed3">2.3.1 Speed</h4>
+<p>Refence Speech: <em>Those sounds, which may proceed in the same tempo and with the same rhythm, but which a thousand times leave you cold and unmoved, and a thousand and a first time make you tremble and weep.</em></p>
+<p>Speed-1: <em>Listen, <b>she</b> <b>decreased her speaking speed</b>: Those sounds, which may proceed in the same tempo and with the same rhythm, but which a thousand times leave you cold and unmoved, and a thousand and a first time make you tremble and weep.</em></p>
+<p>Speed-2: <em>Listen, <b>she</b> <b>increased her speaking speed</b>: Those sounds, which may proceed in the same tempo and with the same rhythm, but which a thousand times leave you cold and unmoved, and a thousand and a first time make you tremble and weep.</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Refence Speech</th>
+<th style="text-align: center">Speed-1</th>
+<th style="text-align: center">Speed-2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio51.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio52.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio53.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="Pitch3">2.3.2 Pitch</h4>
+<p>Refence Speech: <em>On the evening, the divorce question was discussed between the widow and her son. She meant to take use unexpectedly firm opposition, and had promised to let the matter remain unsettled till his return. </em></p>
+<p>Pitch-1: <em>Please find a <b>girl</b> to talk at a <b>lower pitch</b> than usual: On the evening, the divorce question was discussed between the widow and her son. She meant to take use unexpectedly firm opposition, and had promised to let the matter remain unsettled till his return. </em></p>
+<p>Pitch-2: <em>Please find a <b>girl</b> to talk at a <b>higher pitch</b> than usual: On the evening, the divorce question was discussed between the widow and her son. She meant to take use unexpectedly firm opposition, and had promised to let the matter remain unsettled till his return. </em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center">Refence Speech</th>
+<th style="text-align: center">Pitch-1</th>
+<th style="text-align: center">Pitch-2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio56.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio54.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio55.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+-->
+			</section>
+		</article>
+	</main>
+
+</div>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-139981676-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+<script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+         HTML: ["input/TeX","output/HTML-CSS"],
+         TeX: {
+                Macros: {
+                         bm: ["\\boldsymbol{#1}", 1],
+                         argmax: ["\\mathop{\\rm arg\\,max}\\limits"],
+                         argmin: ["\\mathop{\\rm arg\\,min}\\limits"]},
+                extensions: ["AMSmath.js","AMSsymbols.js"],
+                equationNumbers: { autoNumber: "AMS" } },
+         extensions: ["tex2jax.js"],
+         jax: ["input/TeX","output/HTML-CSS"],
+         tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true },
+         "HTML-CSS": { availableFonts: ["TeX"],
+                       linebreaks: { automatic: true } }
+     });
+ </script>
+
+ <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       tex2jax: {
+         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+       }
+     });
+ </script>
+
+ <script type="text/javascript" async
+   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+ </script>
+
+
+
+
+</body>
+</html>
