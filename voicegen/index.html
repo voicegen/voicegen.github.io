@@ -72,7 +72,7 @@
 -->
 
 <h2 id="audio samples">2. Audio Samples</h2>
-<p> The following parts are the audio samples from our system and PromptTTS. Note that we show our system from 2 parts as follows.</p>
+<p> The following parts are the audio samples from our system and PromptTTS. We demonstrate from the following two aspects</p>
 <p> <b>Comparison of Style Control</b>: we aim to show that we can control a specific style with the prompts of different meaning.</p>
 <p> <b>Comparison of Residual Style Variation</b>: we aim to show that we can synthesize speech in different residual styles.</p>
 <!--
@@ -80,184 +80,85 @@
 -->
 
 <h3 id="Part 1">2.1 Comparison of Style Control</h3>
-<p> Note that audio samples in this part are from our system and PromptTTS with different prompts, which shows that our system can control a specific style with the prompts of different meaning.</p>
+<p> Note that audio samples in this part are from our system with different prompts, which shows that our system can control a specific style with the prompts of different meaning.</p>
 
 <h4 id="gender1">2.1.1 Gender</h4>
-<p>[Our System, PromptTTS]: <em>Please ask a <b>man</b> with a normal voice to say: Fire a whole platoon, Major.</em></p>
+<p>Gender-1: <em>Please ask a <b>man</b> with a normal voice to say: Fire a whole platoon, Major.</em></p>
+<p>Gender-2: <em>Please ask a <b>woman</b> with a normal voice to say: Fire a whole platoon, Major.</em></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: center">Our System</th>
-<th style="text-align: center">PromptTTS</th>
+<th style="text-align: center">Gender-1</th>
+<th style="text-align: center">Gender-2</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: center"><audio controls="controls" ><source src="../audio/audio1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-</tr>
-</tbody>
-</table>
-
-<p>[Our System, PromptTTS]: <em>Please ask a <b>woman</b> with a normal voice to say: Fire a whole platoon, Major.</em></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center">Our System</th>
-<th style="text-align: center">PromptTTS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
 <td style="text-align: center"><audio controls="controls" ><source src="../audio/audio2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio4.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 </tr>
 </tbody>
 </table>
 
 <h4 id="Speed1">2.1.2 Speed</h4>
-<p>[Our System, PromptTTS]: <em>Please speak at a <b>slow speed</b>, gentleman: Him sorely and yet, it was but a woman's fancy, a passing fancy. She would become reconciled to the inevitable, as women do, and when her children came, she would grow accustomed to her sorrow. And her trouble would be forgotten in their laughter.</em></p>
+<p>Speed-1: <em>Please speak at a <b>slow speed</b>, gentleman: Him sorely and yet, it was but a woman's fancy, a passing fancy. She would become reconciled to the inevitable, as women do, and when her children came, she would grow accustomed to her sorrow. And her trouble would be forgotten in their laughter.</em></p>
+<p>Speed-2: <em>Please speak at a <b>normal speed</b>, gentleman: Him sorely and yet, it was but a woman's fancy, a passing fancy. She would become reconciled to the inevitable, as women do, and when her children came, she would grow accustomed to her sorrow. And her trouble would be forgotten in their laughter.</em></p>
+<p>Speed-3: <em>Please speak at a <b>fast speed</b>, gentleman: Him sorely and yet, it was but a woman's fancy, a passing fancy. She would become reconciled to the inevitable, as women do, and when her children came, she would grow accustomed to her sorrow. And her trouble would be forgotten in their laughter.</em></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: center">Our System</th>
-<th style="text-align: center">PromptTTS</th>
+<th style="text-align: center">Speed-1</th>
+<th style="text-align: center">Speed-2</th>
+<th style="text-align: center">Speed-2</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: center"><audio controls="controls" ><source src="../audio/audio5.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio8.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-</tr>
-</tbody>
-</table>
-
-<p>[Our System, PromptTTS]: <em>Please speak at a <b>normal speed</b>, gentleman: Him sorely and yet, it was but a woman's fancy, a passing fancy. She would become reconciled to the inevitable, as women do, and when her children came, she would grow accustomed to her sorrow. And her trouble would be forgotten in their laughter.</em></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center">Our System</th>
-<th style="text-align: center">PromptTTS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
 <td style="text-align: center"><audio controls="controls" ><source src="../audio/audio6.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio9.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-</tr>
-</tbody>
-</table>
-
-<p>[Our System, PromptTTS]: <em>Please speak at a <b>fast speed</b>, gentleman: Him sorely and yet, it was but a woman's fancy, a passing fancy. She would become reconciled to the inevitable, as women do, and when her children came, she would grow accustomed to her sorrow. And her trouble would be forgotten in their laughter.</em></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center">Our System</th>
-<th style="text-align: center">PromptTTS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
 <td style="text-align: center"><audio controls="controls" ><source src="../audio/audio7.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio10.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 </tr>
 </tbody>
 </table>
 
 <h4 id="Pitch1">2.1.3 Pitch</h4>
-<p>[Our System, PromptTTS]: <em>She said in a <b>low pitch</b>: But it is not with a view to distinction that you should cultivate this talent, if you consult your own happiness.</em></p>
+<p>Pitch-1: <em>She said in a <b>low pitch</b>: But it is not with a view to distinction that you should cultivate this talent, if you consult your own happiness.</em></p>
+<p>Pitch-2: <em>She said in a <b>normal pitch</b>: But it is not with a view to distinction that you should cultivate this talent, if you consult your own happiness.</em></p>
+<p>Pitch-3: <em>She said in a <b>high pitch</b>: But it is not with a view to distinction that you should cultivate this talent, if you consult your own happiness.</em></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: center">Our System</th>
-<th style="text-align: center">PromptTTS</th>
+<th style="text-align: center">Pitch-1</th>
+<th style="text-align: center">Pitch-2</th>
+<th style="text-align: center">Pitch-3</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: center"><audio controls="controls" ><source src="../audio/audio13.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio14.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-</tr>
-</tbody>
-</table>
-
-<p>[Our System, PromptTTS]: <em>She said in a <b>normal pitch</b>: But it is not with a view to distinction that you should cultivate this talent, if you consult your own happiness.</em></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center">Our System</th>
-<th style="text-align: center">PromptTTS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
 <td style="text-align: center"><audio controls="controls" ><source src="../audio/audio12.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio15.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-</tr>
-</tbody>
-</table>
-
-<p>[Our System, PromptTTS]: <em>She said in a <b>high pitch</b>: But it is not with a view to distinction that you should cultivate this talent, if you consult your own happiness.</em></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center">Our System</th>
-<th style="text-align: center">PromptTTS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
 <td style="text-align: center"><audio controls="controls" ><source src="../audio/audio11.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio16.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 </tr>
 </tbody>
 </table>
 
 <h4 id="Volume1">2.1.4 Volume</h4>
-<p>[Our System, PromptTTS]: <em>Generate a boy's voice with a <b>low volume</b> for me: But their health and strength, child; they can never stand the severe application.</em></p>
+<p>Volume-1: <em>Generate a boy's voice with a <b>low volume</b> for me: But their health and strength, child; they can never stand the severe application.</em></p>
+<p>Volume-2: <em>Generate a boy's voice with a <b>normal volume</b> for me: But their health and strength, child; they can never stand the severe application.</em></p>
+<p>Volume-3: <em>Generate a boy's voice with a <b>high volume</b> for me: But their health and strength, child; they can never stand the severe application.</em></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: center">Our System</th>
-<th style="text-align: center">PromptTTS</th>
+<th style="text-align: center">Volume-1</th>
+<th style="text-align: center">Volume-2</th>
+<th style="text-align: center">Volume-3</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: center"><audio controls="controls" ><source src="../audio/audio19.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio18.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-</tr>
-</tbody>
-</table>
-
-<p>[Our System, PromptTTS]: <em>Generate a boy's voice with a <b>normal volume</b> for me: But their health and strength, child; they can never stand the severe application.</em></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center">Our System</th>
-<th style="text-align: center">PromptTTS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
 <td style="text-align: center"><audio controls="controls" ><source src="../audio/audio20.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio17.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-</tr>
-</tbody>
-</table>
-
-<p>[Our System, PromptTTS]: <em>Generate a boy's voice with a <b>high volume</b> for me: But their health and strength, child; they can never stand the severe application.</em></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center">Our System</th>
-<th style="text-align: center">PromptTTS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
 <td style="text-align: center"><audio controls="controls" ><source src="../audio/audio21.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-<td style="text-align: center"><audio controls="controls" ><source src="../audio/audio22.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 </tr>
 </tbody>
 </table>
@@ -265,15 +166,15 @@
 <h3 id="Part 2">2.2 Comparison of Residual Style Variation</h3>
 <p> Note that audio samples in this part are from our system and PromptTTS with different settings, which shows that our system can synthesize speech in different residual styles.</p>
 <h4 id="oursystem2">2.2.1 Our System</h4>
-<h5 id="vae1">2.2.1.1 RDNet Seed</h5>
-<p> We change the random seed of RDNet and the timbre changes.</p>
+<h5 id="vae1">2.2.1.1 Variation Network Seed</h5>
+<p> We can change the timbre by altering the seed of the Variation Network while maintaining the speech consistent with the intention of the prompt.</p>
 <p>RDNet Seed<-[1, 2, 3]: <em>I want a <b>low pitched</b> <b>female</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: center">RDNet Seed<-1</th>
-<th style="text-align: center">RDNet Seed<-2</th>
-<th style="text-align: center">RDNet Seed<-3</th>
+<th style="text-align: center">RDNet Seed-1</th>
+<th style="text-align: center">RDNet Seed-2</th>
+<th style="text-align: center">RDNet Seed-3</th>
 </tr>
 </thead>
 <tbody>
@@ -286,7 +187,7 @@
 </table>
 
 <h5 id="text1">2.2.1.2 Text</h5>
-<p> We change the text but the timbre does not change.</p>
+<p> We cannot change the timbre by altering the text.</p>
 <p>Text-1: <em>I want a <b>low pitched</b> <b>female</b> voice: Delaney had read one or two works on psychic phenomena and understood from them that spirit projection was not only quite feasible but far from uncommon.</em></p>
 <p>Text-2: <em>I want a <b>low pitched</b> <b>female</b> voice: And in this additional chapter to amplify and fortify, here and there, the result must necessarily be disconnected but a glance at the index will point the way to what is new.</em></p>
 <p>Text-3: <em>I want a <b>low pitched</b> <b>female</b> voice: If you wore the pink bonnet, I'll give it to you, and I'll back you up again, Mrs. Danvey. I think you might have done something with our member, as my father calls him, when you had him for so long in the house, but altogether.</em></p>
@@ -308,7 +209,7 @@
 </table>
 
 <h5 id="prompt1">2.2.1.3 Prompt</h5>
-<p> We change the prompt but the timbre does not change.</p>
+<p> We cannot change the timbre by altering the prompt with the same intention.</p>
 <p>Prompt Sentence-1: <em>I want a <b>low pitched</b> <b>female</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <p>Prompt Sentence-2: <em>This <b>madam</b> talks to me with a <b>deep</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <p>Prompt Sentence-3: <em><b>Increase the pitch</b> of <b>her</b> voice for me: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
@@ -330,7 +231,7 @@
 </table>
 
 <h5 id="diffusion1">2.2.1.4 TTS Module Seed</h5>
-<p> We change the random seed of TTS module but the timbre does not change.</p>
+<p> We cannot change the timbre by altering the random seed of TTS module.</p>
 <p>TTS Module Seed-[1, 2, 3]: <em>I want a <b>low pitched</b> <b>female</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <table>
 <thead>
@@ -352,7 +253,7 @@
 
 <h4 id="prompttts2">2.2.2 PromptTTS</h4>
 <h5 id="text2">2.2.2.1 Text</h5>
-<p> We change the text but the timbre does not change.</p>
+<p> We cannot change the timbre by altering the text.</p>
 <p>Text-1: <em>I want a <b>low pitched</b> <b>female</b> voice: Delaney had read one or two works on psychic phenomena and understood from them that spirit projection was not only quite feasible but far from uncommon.</em></p>
 <p>Text-2: <em>I want a <b>low pitched</b> <b>female</b> voice: And in this additional chapter to amplify and fortify, here and there, the result must necessarily be disconnected but a glance at the index will point the way to what is new.</em></p>
 <p>Text-3: <em>I want a <b>low pitched</b> <b>female</b> voice: If you wore the pink bonnet, I'll give it to you, and I'll back you up again, Mrs. Danvey. I think you might have done something with our member, as my father calls him, when you had him for so long in the house, but altogether.</em></p>
@@ -374,7 +275,7 @@
 </table>
 
 <h5 id="prompt2">2.2.2.2 Prompt</h5>
-<p> We change the prompt but the timbre does not change.</p>
+<p> We cannot change the timbre by altering the prompt with the same intention.</p>
 <p>Prompt Sentence-1: <em>I want a <b>low pitched</b> <b>female</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <p>Prompt Sentence-2: <em>This <b>madam</b> talks to me with a <b>deep</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <p>Prompt Sentence-3: <em><b>Increase the pitch</b> of <b>her</b> voice for me: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
@@ -396,7 +297,7 @@
 </table>
 
 <h5 id="diffusion2">2.2.2.3 TTS Module Seed</h5>
-<p> We change the random seed of TTS module but the timbre does not change.</p>
+<p> We cannot change the timbre by altering the random seed of TTS module.</p>
 <p>TTS Module Seed-[1, 2, 3]: <em>I want a <b>low pitched</b> <b>female</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <table>
 <thead>
