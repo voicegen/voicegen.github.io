@@ -27,17 +27,17 @@
 				<br>
 
 <h2 id="abstract">Abstract</h2>
-<p> In this paper, we introduce an innovative method on generating voices for speech synthesis using text descriptions as prompt. Traditional Text-to-Speech (TTS) systems depend on reference audio for style control, resulting in reduced flexibility and user-friendliness. Consequently, recent research has focused on controlling speech synthesis style through text descriptions. However, existing text description-based TTS approaches face challenges such as requiring human experts to write descriptions and confronting the one-to-many problem due to limited fine-grained style information in the text. To address these issues, we (1) leverage ChatGPT to generate fluent descriptions centered on specific speech style keywords, and carefully design prompts with keyword placeholders to counteract ChatGPT's instability, which may produce excessive details or miss crucial keywords. Furthermore, we (2) employ a variational auto-encoder (VAE) to model the residual style information not captured by the text description. By incorporating a gradient reversal layer, the VAE module efficiently disentangles style information from both the text description and reference audio. Our experiments on a large-scale datasets with 44K hours of speech data show that our method outperforms previous works in style control accuracy. And ChatGPT-generated descriptions demonstrate marginally higher quality than human-authored ones. Thanks to the style disentanglement, our system is able to facilitate style generation by sampling from noise during inference. An online demo of our system is available for further exploration. </p>
+<p> Speech conveys more information than just text, as the same word can be uttered in various voices to convey different information. Traditional text-to-speech (TTS) methods rely on reference audio for voice variability, but using text descriptions (prompts) is more user-friendly since finding suitable reference audio is often harder than describing the desired voice. Prompt-based TTS approach faces two challenges: 1) limited availability of prompt datasets, which require expert-written voice descriptions that are expensive, and 2) the one-to-many problem, where not all details on voice variability can be described by prompts. To address the first challenge, we propose a pipeline using speech understanding models and ChatGPT to generate prompts for speech. After defining voice attributes (e.g., gender, speed), a speech understanding model recognizes attribute values, and ChatGPT generates high-quality prompts describing the recognition results. This pipeline eliminates the need for human experts and produces better prompts than human-authored ones. For the second challenge, we introduce a variation network to provide (residual) detailed information not captured by prompts from reference audio. The network predicts residual representations conditioned on the prompt. Diffusion model is incorporated in variation network to enable diverse residual information sampling from Gaussian noise with prompt only. Experiments on a large-scale (44K-hour) speech dataset show our system generates voices more consistent with prompts and supports sampling different residual details, giving users more voice description options. The demo page of our system is available online. </p>
 
 
 <h2 id="content">Content</h2>
+<b><a href="#audio samples">1. Audio Samples</a></b><br>
+<a href="#Part 1">1.1 Comparison of Style Control</a><br>
+<a href="#Part 2">1.2 Comparison of Residual Style Variation</a><br>
 <!--
 <b><a href="#dataset">1. Dataset</a></b><br>
 <a href="#promptspeech">1.1 PromptSpeech</a><br>
 -->
-<b><a href="#audio samples">2. Audio Samples</a></b><br>
-<a href="#Part 1">2.1 Comparison of Style Control</a><br>
-<a href="#Part 2">2.2 Comparison of Residual Style Variation</a><br>
 <!--
 <a href="#Part 3">2.3 Comparison of Residual Style Control</a><br>
 -->
@@ -71,18 +71,18 @@
 </table>
 -->
 
-<h2 id="audio samples">2. Audio Samples</h2>
+<h2 id="audio samples">1. Audio Samples</h2>
 <p> The following parts are the audio samples from our system and PromptTTS. We demonstrate from the following two aspects</p>
 <p> <b>Comparison of Style Control</b>: we aim to show that we can control a specific style with the prompts of different meaning.</p>
-<p> <b>Comparison of Residual Style Variation</b>: we aim to show that we can synthesize speech in different residual styles with different seeds of variation network.</p>
+<p> <b>Comparison of Residual Style Variation</b>: we aim to show that we can synthesize speech in the same residual styles when changing the text, prompts with the same intention or the random seed of TTS module, while in different residual styles with different seeds of variation network.</p>
 <!--
 <p> <b>Comparison of Residual Style Control</b>: we aim to show we can control a specific residual style with the prompts of different meaning.</p>
 -->
 
-<h3 id="Part 1">2.1 Comparison of Style Control</h3>
-<p> Note that audio samples in this part are from our system with different prompt, which shows that our system can control a specific style with the prompt of different meaning.</p>
+<h3 id="Part 1">1.1 Comparison of Style Control</h3>
+<p> Note that audio samples in this part are from our system, which shows that our system can control a specific style with the prompt of different meaning.</p>
 
-<h4 id="gender1">2.1.1 Gender</h4>
+<h4 id="gender1">1.1.1 Gender</h4>
 <p>Gender-1: <em>Please ask a <b>man</b> with a normal voice to say: Fire a whole platoon, Major.</em></p>
 <p>Gender-2: <em>Please ask a <b>woman</b> with a normal voice to say: Fire a whole platoon, Major.</em></p>
 <table>
@@ -100,7 +100,7 @@
 </tbody>
 </table>
 
-<h4 id="Speed1">2.1.2 Speed</h4>
+<h4 id="Speed1">1.1.2 Speed</h4>
 <p>Speed-1: <em>Please speak at a <b>slow speed</b>, gentleman: Him sorely and yet, it was but a woman's fancy, a passing fancy. She would become reconciled to the inevitable, as women do, and when her children came, she would grow accustomed to her sorrow. And her trouble would be forgotten in their laughter.</em></p>
 <p>Speed-2: <em>Please speak at a <b>normal speed</b>, gentleman: Him sorely and yet, it was but a woman's fancy, a passing fancy. She would become reconciled to the inevitable, as women do, and when her children came, she would grow accustomed to her sorrow. And her trouble would be forgotten in their laughter.</em></p>
 <p>Speed-3: <em>Please speak at a <b>fast speed</b>, gentleman: Him sorely and yet, it was but a woman's fancy, a passing fancy. She would become reconciled to the inevitable, as women do, and when her children came, she would grow accustomed to her sorrow. And her trouble would be forgotten in their laughter.</em></p>
@@ -121,7 +121,7 @@
 </tbody>
 </table>
 
-<h4 id="Pitch1">2.1.3 Pitch</h4>
+<h4 id="Pitch1">1.1.3 Pitch</h4>
 <p>Pitch-1: <em>She said in a <b>low pitch</b>: But it is not with a view to distinction that you should cultivate this talent, if you consult your own happiness.</em></p>
 <p>Pitch-2: <em>She said in a <b>normal pitch</b>: But it is not with a view to distinction that you should cultivate this talent, if you consult your own happiness.</em></p>
 <p>Pitch-3: <em>She said in a <b>high pitch</b>: But it is not with a view to distinction that you should cultivate this talent, if you consult your own happiness.</em></p>
@@ -142,7 +142,7 @@
 </tbody>
 </table>
 
-<h4 id="Volume1">2.1.4 Volume</h4>
+<h4 id="Volume1">1.1.4 Volume</h4>
 <p>Volume-1: <em>Generate a boy's voice with a <b>low volume</b> for me: But their health and strength, child; they can never stand the severe application.</em></p>
 <p>Volume-2: <em>Generate a boy's voice with a <b>normal volume</b> for me: But their health and strength, child; they can never stand the severe application.</em></p>
 <p>Volume-3: <em>Generate a boy's voice with a <b>high volume</b> for me: But their health and strength, child; they can never stand the severe application.</em></p>
@@ -163,10 +163,10 @@
 </tbody>
 </table>
 
-<h3 id="Part 2">2.2 Comparison of Residual Style Variation</h3>
-<p> Note that audio samples in this part are from our system and PromptTTS with different settings, which shows that our system can synthesize speech in different residual styles with different seeds of variation network.</p>
+<h3 id="Part 2">1.2 Comparison of Residual Style Variation</h3>
+<p> Note that audio samples in this part are from our system and PromptTTS, which shows that our system can synthesize speech in the same residual styles when changing the text, prompts with the same intention or the random seed of TTS module, while in different residual styles with different seeds of variation network.</p>
 <h4 id="oursystem2">2.2.1 Our System</h4>
-<h5 id="vae1">2.2.1.1 Variation Network Seed</h5>
+<h5 id="vae1">1.2.1.1 Variation Network Seed</h5>
 <p> We can change the timbre by altering the seed of the variation network while maintaining the speech consistent with the intention of the prompt.</p>
 <p>Variation Network Seed-[1, 2, 3]: <em>I want a <b>low pitched</b> <b>female</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <table>
@@ -186,8 +186,8 @@
 </tbody>
 </table>
 
-<h5 id="text1">2.2.1.2 Text</h5>
-<p> We cannot change the timbre by altering the text.</p>
+<h5 id="text1">1.2.1.2 Text</h5>
+<p> Even if we change the text, the timbre will not be not be altered, which is exactly what we aim to achieve.</p>
 <p>Text-1: <em>I want a <b>low pitched</b> <b>female</b> voice: Delaney had read one or two works on psychic phenomena and understood from them that spirit projection was not only quite feasible but far from uncommon.</em></p>
 <p>Text-2: <em>I want a <b>low pitched</b> <b>female</b> voice: And in this additional chapter to amplify and fortify, here and there, the result must necessarily be disconnected but a glance at the index will point the way to what is new.</em></p>
 <p>Text-3: <em>I want a <b>low pitched</b> <b>female</b> voice: If you wore the pink bonnet, I'll give it to you, and I'll back you up again, Mrs. Danvey. I think you might have done something with our member, as my father calls him, when you had him for so long in the house, but altogether.</em></p>
@@ -208,8 +208,8 @@
 </tbody>
 </table>
 
-<h5 id="prompt1">2.2.1.3 Prompt</h5>
-<p> We cannot change the timbre by altering the prompt with the same intention.</p>
+<h5 id="prompt1">1.2.1.3 Prompt</h5>
+<p> Even if we change the prompt with the same intention, the timbre will not be not be altered, which is exactly what we aim to achieve. </p>
 <p>Prompt Sentence-1: <em>I want a <b>low pitched</b> <b>female</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <p>Prompt Sentence-2: <em>This <b>madam</b> talks to me with a <b>deep</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <p>Prompt Sentence-3: <em><b>Increase the pitch</b> of <b>her</b> voice for me: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
@@ -230,8 +230,8 @@
 </tbody>
 </table>
 
-<h5 id="diffusion1">2.2.1.4 TTS Module Seed</h5>
-<p> We cannot change the timbre by altering the random seed of TTS module.</p>
+<h5 id="diffusion1">1.2.1.4 TTS Module Seed</h5>
+<p> We cannot alter the timbre by changing the random seed of TTS module.</p>
 <p>TTS Module Seed-[1, 2, 3]: <em>I want a <b>low pitched</b> <b>female</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <table>
 <thead>
@@ -251,9 +251,9 @@
 </table>
 
 
-<h4 id="prompttts2">2.2.2 PromptTTS</h4>
+<h4 id="prompttts2">1.2.2 PromptTTS</h4>
 <h5 id="text2">2.2.2.1 Text</h5>
-<p> We cannot change the timbre by altering the text.</p>
+<p> PromptTTS can alter the text while maintaining the timbre.</p>
 <p>Text-1: <em>I want a <b>low pitched</b> <b>female</b> voice: Delaney had read one or two works on psychic phenomena and understood from them that spirit projection was not only quite feasible but far from uncommon.</em></p>
 <p>Text-2: <em>I want a <b>low pitched</b> <b>female</b> voice: And in this additional chapter to amplify and fortify, here and there, the result must necessarily be disconnected but a glance at the index will point the way to what is new.</em></p>
 <p>Text-3: <em>I want a <b>low pitched</b> <b>female</b> voice: If you wore the pink bonnet, I'll give it to you, and I'll back you up again, Mrs. Danvey. I think you might have done something with our member, as my father calls him, when you had him for so long in the house, but altogether.</em></p>
@@ -274,8 +274,8 @@
 </tbody>
 </table>
 
-<h5 id="prompt2">2.2.2.2 Prompt</h5>
-<p> We cannot change the timbre by altering the prompt with the same intention.</p>
+<h5 id="prompt2">1.2.2.2 Prompt</h5>
+<p> PromptTTS can alter the prompt with the same intention while maintaining the timbre.</p>
 <p>Prompt Sentence-1: <em>I want a <b>low pitched</b> <b>female</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <p>Prompt Sentence-2: <em>This <b>madam</b> talks to me with a <b>deep</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <p>Prompt Sentence-3: <em><b>Increase the pitch</b> of <b>her</b> voice for me: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
@@ -296,8 +296,8 @@
 </tbody>
 </table>
 
-<h5 id="diffusion2">2.2.2.3 TTS Module Seed</h5>
-<p> We cannot change the timbre by altering the random seed of TTS module.</p>
+<h5 id="diffusion2">1.2.2.3 TTS Module Seed</h5>
+<p> PromptTTS cannot change the timbre by altering the random seed of TTS module.</p>
 <p>TTS Module Seed-[1, 2, 3]: <em>I want a <b>low pitched</b> <b>female</b> voice: Jason went back sadly and told the heroes what he had heard, and they leapt onshore and searched till gone. At dawn, they found the body all rolled in dust and blood among the corpses of those monstrous beasts.</em></p>
 <table>
 <thead>
